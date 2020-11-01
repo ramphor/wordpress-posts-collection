@@ -1,0 +1,14 @@
+{
+    "name": "ramphor/wordpress-posts-collection",
+    "description": "Create posts and post types collection for WordPress",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Puleeno Nguyen",
+            "email": "puleeno@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
