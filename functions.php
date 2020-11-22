@@ -2,6 +2,18 @@
 use Ramphor\Collection\GlobalCollection;
 use Ramphor\Collection\CollectionTemplate;
 
+
+function ramphor_collection_asset_url($path = '') {
+    $abspath = constant('ABSPATH');
+    $collectionRoot = constant('RAMPHOR_COLLECTION_ROOT_DIR');
+    if (PHP_OS === 'WINNT') {
+        $abspath = str_replace('\\', '/', $abspath);
+        $collectionRoot = str_replace('\\', '/', $collectionRoot);
+    }
+    $assetDirectoryUrl = str_replace($abspath, site_url('/'), $collectionRoot);
+    return sprintf('%s/assets/%s', $assetDirectoryUrl, $path);
+}
+
 function register_post_collection($collection, $args = array()) {
     global $global_collection;
     if (!is_a($global_collection, GlobalCollection::class)) {
