@@ -1,15 +1,18 @@
 <?php
 namespace Ramphor\Collection;
 
-class DB {
-    public static function setup() {
+class DB
+{
+    public static function setup()
+    {
         $db = new static();
         $db->create_global_collections_table();
         $db->create_user_collections_table();
         die;
     }
 
-    protected function create_table($table_name, $table_fields) {
+    protected function create_table($table_name, $table_fields)
+    {
         if (!is_array($table_fields)) {
             return;
         }
@@ -21,7 +24,7 @@ class DB {
         );
 
         $sql .= '(' . PHP_EOL;
-        foreach($table_fields as $table_field => $option) {
+        foreach ($table_fields as $table_field => $option) {
             $sql .= sprintf(
                 "\t%s %s," . PHP_EOL,
                 $table_field,
@@ -36,7 +39,8 @@ class DB {
         return $wpdb->query($sql);
     }
 
-    public function create_global_collections_table() {
+    public function create_global_collections_table()
+    {
         $this->create_table('ramphor_collection_global', array(
             'ID' => array('BIGINT', 'UNSIGNED', 'AUTO_INCREMENT'),
             'collection' => array('VARCHAR(60) NOT NULL'),
@@ -48,7 +52,8 @@ class DB {
         ));
     }
 
-    public function create_user_collections_table() {
+    public function create_user_collections_table()
+    {
         $this->create_table('ramphor_collection_user', array(
             'ID' => array('BIGINT', 'UNSIGNED', 'AUTO_INCREMENT'),
             'collection_name' => array('VARCHAR(60) NOT NULL'),

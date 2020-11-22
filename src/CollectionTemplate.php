@@ -3,10 +3,12 @@ namespace Ramphor\Collection;
 
 use Jankx\Template\Template;
 
-class CollectionTemplate {
+class CollectionTemplate
+{
     protected static $loader;
 
-    protected static function getLoader() {
+    protected static function getLoader()
+    {
         if (is_null(static::$loader)) {
             $collectionTemplateDir = sprintf('%s/templates', constant('RAMPHOR_COLLECTION_ROOT_DIR'));
             static::$loader = Template::getLoader(
@@ -25,7 +27,8 @@ class CollectionTemplate {
      *
      * @return  string|null
      */
-    public static function render() {
+    public static function render()
+    {
         $args = func_get_args();
 
         return call_user_func_array(array(

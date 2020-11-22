@@ -1,5 +1,6 @@
 <?php
 namespace Ramphor\Collection;
 
-class AjaxRequest {
+class AjaxRequest
+{
 }
