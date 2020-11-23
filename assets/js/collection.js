@@ -62,11 +62,17 @@ function ramphor_collection_call_action(event) {
         e.target.responseJSON = JSON.parse(e.target.response);
         var response = e.target.responseJSON;
         var not_logged_in_callback = window[ramphor_collections.user_not_loggedin_callback];
-        if (!response.status) { // Error case
+
+        if (!response.success) { // Error case
             if (response.data.error === 'not_logged_in' && typeof not_logged_in_callback === 'function') {
                 not_logged_in_callback(data);
+            } else if (response.data.message) {
+                alert(response.data.message);
             }
+            return;
         }
+        data_tag.innerHTML = response.data.new_html;
+        data_tag.dataset.collectionAction = data.action === 'add' ? 'remove' : 'add';
     });
     xhr.open(
         'POST',
