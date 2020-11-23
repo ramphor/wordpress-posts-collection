@@ -26,16 +26,33 @@ function check_post_in_collection($post_id, $collection, $user_id = null) {
 }
 
 function show_post_in_collection_status($post_id, $collection, $user_id = null) {
-    if (empty($user_id) || check_post_in_collection($post_id, $collection, $user_id)) {
-        CollectionTemplate::render(array(
-            str_replace('_', '-', $collection) . '/not-exists',
-            'not-exists',
-        ));
+    echo '<div class="the-collection-status">';
+        if (empty($user_id) || check_post_in_collection($post_id, $collection, $user_id)) {
+            echo '<div
+                class="collection-action"
+                data-collection-action="add"
+                data-collection="' . $collection . '"
+                data-post-id="' . $post_id . '"
+                data-nonce="' . wp_create_nonce(sprintf('#%s-%d', $collection, $post_id)) . '"
+            >';
+            CollectionTemplate::render(array(
+                str_replace('_', '-', $collection) . '/not-exists',
+                'not-exists',
+            ));
 
-    } else {
-        CollectionTemplate::render(array(
-            str_replace('_', '-', $collection) . '/exists',
-            'exists',
-        ));
-    }
+        } else {
+            echo '<div
+                class="collection-action"
+                data-collection-action="remove"
+                data-collection="' . $collection . '"
+                data-post-id="' . $post_id . '"
+                data-nonce="' . wp_create_nonce(sprintf('#%s-%d', $collection, $post_id)) . '"
+            >';
+            CollectionTemplate::render(array(
+                str_replace('_', '-', $collection) . '/exists',
+                'exists',
+            ));
+        }
+        echo '</div>';
+    echo '</div>';
 }

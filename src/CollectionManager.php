@@ -1,11 +1,16 @@
 <?php
 namespace Ramphor\Collection;
 
+use Ramphor\Collection\RequestManager;
+use Ramphor\Collection\Types\GlobalCollection;
+
 class CollectionManager
 {
-    const VERSION = '0.0.1';
+    const VERSION = '0.0.1.23';
 
     protected static $instance;
+
+    public $request;
 
     public static function getInstance()
     {
@@ -38,6 +43,9 @@ class CollectionManager
         global $global_collection;
         $global_collection = new GlobalCollection();
 
+
+        $this->request = new RequestManager();
+
         add_action('wp_enqueue_scripts', array($this, 'registerScripts'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'), 100);
     }
@@ -54,6 +62,8 @@ class CollectionManager
 
         $global_variables = array(
             'user_not_loggedin_callback' => '',
+            'add_post_to_collection' => admin_url('admin-ajax.php?action=add_post_to_collection'),
+            'remove_post_to_collection' => admin_url('admin-ajax.php?action=remove_post_to_collection'),
         );
         wp_localize_script(
             'ramphor-collection',
