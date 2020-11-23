@@ -8,7 +8,6 @@ class DB
         $db = new static();
         $db->create_global_collections_table();
         $db->create_user_collections_table();
-        die;
     }
 
     protected function create_table($table_name, $table_fields)
