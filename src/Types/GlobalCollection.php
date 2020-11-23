@@ -1,5 +1,5 @@
 <?php
-namespace Ramphor\Collection;
+namespace Ramphor\Collection\Types;
 
 use Ramphor\Collection\Collection;
 
