@@ -33,8 +33,6 @@ class DB
         $sql = rtrim($sql, ',' . PHP_EOL) . PHP_EOL . ')';
         $sql .= sprintf(' ENGINE=InnoDB DEFAULT CHARSET=%s;', $wpdb->get_charset_collate());
 
-        var_dump($sql);
-
         return $wpdb->query($sql);
     }
 
