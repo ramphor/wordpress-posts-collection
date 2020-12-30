@@ -12,7 +12,7 @@ composer require ramphor/wordpress-posts-collection
 
 ```
 use Ramphor\Collection\CollectionManager;
-use Ramphor\Collection\DB as CollectionDB;setup';
+use Ramphor\Collection\DB as CollectionDB;
 
 
 ```
