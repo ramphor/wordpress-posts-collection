@@ -2,8 +2,8 @@
 use Ramphor\Collection\GlobalCollection;
 use Ramphor\Collection\CollectionTemplate;
 
-
-function ramphor_collection_asset_url($path = '') {
+function ramphor_collection_asset_url($path = '')
+{
     $abspath = constant('ABSPATH');
     $collectionRoot = constant('RAMPHOR_COLLECTION_ROOT_DIR');
     if (PHP_OS === 'WINNT') {
@@ -14,7 +14,8 @@ function ramphor_collection_asset_url($path = '') {
     return sprintf('%s/assets/%s', $assetDirectoryUrl, $path);
 }
 
-function register_post_collection($collection, $args = array()) {
+function register_post_collection($collection, $args = array())
+{
     global $global_collection;
     if (!is_a($global_collection, GlobalCollection::class)) {
         return;
@@ -22,7 +23,8 @@ function register_post_collection($collection, $args = array()) {
     $global_collection->add_collection($collection, $args);
 }
 
-function check_post_in_collection($post_id, $collection, $user_id = null, $skip_delete_flag = false) {
+function check_post_in_collection($post_id, $collection, $user_id = null, $skip_delete_flag = false)
+{
     global $wpdb;
     if (is_null($user_id)) {
         $user_id = get_current_user_id();
@@ -39,7 +41,8 @@ function check_post_in_collection($post_id, $collection, $user_id = null, $skip_
     return (int) $wpdb->get_var($sql);
 }
 
-function add_post_to_collection($post_id, $collection, $user_id = null) {
+function add_post_to_collection($post_id, $collection, $user_id = null)
+{
     if (is_null($user_id)) {
         $user_id = get_current_user_id();
     }
@@ -64,7 +67,8 @@ function add_post_to_collection($post_id, $collection, $user_id = null) {
     return $wpdb->query($sql);
 }
 
-function remove_post_to_collection($post_id, $collection, $user_id = null) {
+function remove_post_to_collection($post_id, $collection, $user_id = null)
+{
     if (is_null($user_id)) {
         $user_id = get_current_user_id();
     }
@@ -88,38 +92,42 @@ function remove_post_to_collection($post_id, $collection, $user_id = null) {
     return $wpdb->query($sql);
 }
 
-function show_post_in_collection_status($post_id, $collection, $user_id = null) {
+function show_post_in_collection_status($collection = 'post_favorite', $post_id = null, $user_id = null)
+{
     if (is_null($user_id)) {
         $user_id = get_current_user_id();
     }
+    if (is_null($post_id)) {
+        global $post;
+        $post_id = $post->ID;
+    }
 
     echo '<div class="the-collection-status">';
-        if (empty($user_id) || check_post_in_collection($post_id, $collection, $user_id, false) <= 0) {
-            echo '<div
+    if (empty($user_id) || check_post_in_collection($post_id, $collection, $user_id, false) <= 0) {
+        echo '<div
                 class="collection-action"
                 data-collection-action="add"
                 data-collection="' . $collection . '"
                 data-post-id="' . $post_id . '"
                 data-nonce="' . wp_create_nonce(sprintf('#%s-%d', $collection, $post_id)) . '"
             >';
-            CollectionTemplate::render(array(
-                str_replace('_', '-', $collection) . '/not-exists',
-                'not-exists',
-            ));
-
-        } else {
-            echo '<div
+        CollectionTemplate::render(array(
+            str_replace('_', '-', $collection) . '/not-exists',
+            'not-exists',
+        ));
+    } else {
+        echo '<div
                 class="collection-action"
                 data-collection-action="remove"
                 data-collection="' . $collection . '"
                 data-post-id="' . $post_id . '"
                 data-nonce="' . wp_create_nonce(sprintf('#%s-%d', $collection, $post_id)) . '"
             >';
-            CollectionTemplate::render(array(
-                str_replace('_', '-', $collection) . '/exists',
-                'exists',
-            ));
-        }
+        CollectionTemplate::render(array(
+            str_replace('_', '-', $collection) . '/exists',
+            'exists',
+        ));
+    }
         echo '</div>';
     echo '</div>';
 }
