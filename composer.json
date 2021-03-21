@@ -9,9 +9,8 @@
             "email": "puleeno@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-        "jankx/template": "dev-master"
+        "jankx/template": "*"
     },
     "autoload": {
         "psr-4": {
