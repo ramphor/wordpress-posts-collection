@@ -6,7 +6,7 @@ use Ramphor\Collection\Types\GlobalCollection;
 
 class CollectionManager
 {
-    const VERSION = '0.0.1.34';
+    const VERSION = '0.0.1.41';
 
     protected static $instance;
 

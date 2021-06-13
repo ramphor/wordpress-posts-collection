@@ -84,12 +84,14 @@ function ramphor_collection_call_action(event) {
     xhr.send(JSON.stringify(data));
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-    var collectionPostActions = document.querySelectorAll('[data-collection-action]');
+function ramphor_wordpress_post_collection_trigger(collectionPostActions) {
     if (collectionPostActions.length > 0) {
         for(i = 0;i < collectionPostActions.length; i+=1) {
             var collectionPostAction = collectionPostActions[i];
             collectionPostAction.addEventListener('click', ramphor_collection_call_action);
         }
     }
+}
+window.addEventListener('DOMContentLoaded', function() {
+    ramphor_wordpress_post_collection_trigger(document.querySelectorAll('[data-collection-action]'))
 });
